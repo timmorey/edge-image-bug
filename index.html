@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Edge Image Load Bug</title>
+	</head>
+	<body>
+		<img src="http://www.arcgis.com/sharing/rest/content/items/fa0b97a8bdf94718b870b5703f757559/info/thumbnail/clev-web.png">
+		<button id="the-button">Load image offscreen</button>
+		
+		<script>
+			(function() {
+				var button = document.getElementById('the-button');
+				button.onclick = function() {
+					var image = new Image();
+					image.crossOrigin = 'anonymous';
+					image.onload = function() {
+						console.log('image load succeeded');
+					}
+					image.onerror = function() {
+						console.log('image load failed!');
+					}
+					image.src = 'http://www.arcgis.com/sharing/rest/content/items/fa0b97a8bdf94718b870b5703f757559/info/thumbnail/clev-web.png';
+				}
+			})();
+		</script>
+	</body>
+</html>
